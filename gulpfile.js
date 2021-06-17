@@ -1,67 +1,110 @@
-const { src, dest, watch, series } = require('gulp');
+const { src, dest, watch, series, parallel } = require('gulp');
 const sass = require('gulp-sass');
+const plumber = require('gulp-plumber');
+const autoprefixer = require('gulp-autoprefixer');
+const sourcemaps = require('gulp-sourcemaps');
+const cleancss = require('gulp-clean-css');
+const uglify = require('gulp-uglify');
+const rev = require('gulp-rev');
+const { readFileSync } = require('fs');
+const revRewrite = require('gulp-rev-rewrite');
+const del = require('del');
 const browserSync = require('browser-sync').create();
 
-
-
+const path = {
+    craft: {
+        templates: './cms/templates/',
+        css: './cms/web/assets/css/',
+        js: './cms/web/assets/js/'
+    },
+    dev: {
+        templates: './dev/templates/**/*.html',
+        css: './dev/assets/scss/main.scss',
+        js: './dev/assets/js/main.js'
+    }
+}
 
 const vHost = 'craft3.craftgulp.test';
 
-// copiando html 
+// limpiando directorio - prebuild
+function clean(){
+    return del(['cms/web/assets/**', 'cms/templates/**'])
+}
 
+// compilando templates
 function pages(){
-    return src('dev/templates/**/*.html')
-    .pipe(dest('cms/templates'))
-    //.pipe(browserSync.reload({ stream: true }))
+    console.log('running pages process...')
+    return src(path.dev.templates)
+    .pipe(dest(path.craft.templates))
 }
 
-// function copy(){
-//     return gulp.src('./dev/assets/img')
-//     .pipe(gulp.dest(path.img))
-//     .pipe(browserSync.reload({ stream: true }))
-// }
-
-function compileSass(){
-    return src('dev/assets/scss/main.scss')
-    .pipe(sass())
-    //.pipe(reload())
-    .pipe(dest('cms/web/assets/css'))
-    
-    //done();
+// compilando scss
+function css(){
+    console.log('compiling sass...')
+    return src(path.dev.css)
+        .pipe(plumber())
+        .pipe(sourcemaps.init())
+        .pipe(sass().on('error', sass.logError))
+        .pipe(autoprefixer())
+        .pipe(sourcemaps.write())
+        .pipe(cleancss())
+        .pipe(dest(path.craft.css))
 }
 
-function server(cb){
+// compilando js
+function scripts(){
+    console.log('compiling scripts...')
+    return src(path.dev.js)
+        .pipe(plumber())
+        .pipe(sourcemaps.init())
+        .pipe(uglify())
+        .pipe(sourcemaps.write())
+        .pipe(dest(path.craft.js))
+}
+
+function server(done){
     browserSync.init({
         proxy: vHost
-    });
-    cb();
+    })
+    done()
 }
 
-function reload(cb){
+function reload(done){
     browserSync.reload();
-    cb();
+    done();
 }
 
-function watchTask(){
-    watch('dev/assets/scss/**/*.scss', series(compileSass, reload));
-    watch('dev/templates/**/*.html', series(pages, reload));
-    
-    // watch([dev_path.scss, dev_path.html],     
-    //     series(parallel(server, compileSass, pages, reload))
-    //     )
-    // watch('./dev/templates/**/*.html').on('all', gulp.series(pages, browserSync.reload))
-    // watch('./dev/assets/scss/main.scss').on('all', gulp.series(compileSass, browserSync.reload)) 
+function dev(){
+    watch(['dev/assets/scss/**/*.scss', 'dev/assets/js/**/*.js', 'dev/templates/**/*.html'], series(clean, parallel(css, scripts, pages, reload)))
 }
+
+exports.scripts = scripts;
+exports.css = css;
+exports.pages = pages;
+exports.clean = clean;
+//exports.watch = series(dev, parallel(dev));
 
 exports.default = series(
-    compileSass,
+    clean,
+    css,
+    scripts,
     pages,
     server,
-    watchTask
+    dev
 )
 
-// gulp.task('build',
-// gulp.parallel(pages, copy, compileSass))
 
-// gulp.task('default', 
-// gulp.series('build', server, watch))
+// function watchTask(){
+//     watch('dev/assets/scss/**/*.scss', series(compileSass, pages, rewrite, reload));
+//     watch('dev/templates/**/*.html', series(pages, compileSass, rewrite, reload));
+// }
+
+// exports.default = series(
+//     compileSass,
+//     pages,
+//     server,
+//     watchTask
+// )
+
+// exports.clean = clean;
+// exports.build = series(clean, parallel(compileSass, pages, rewrite));

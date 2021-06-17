@@ -1,3 +1,5 @@
 node_modules
-/gulpfile-error.js
 cms
+.DS_store
+dev/.DS_store
+dev/assets/.DS_store

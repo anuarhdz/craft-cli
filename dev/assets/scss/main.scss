@@ -1,13 +1,13 @@
 
 // source imports
-@import 'global';
+@import 'global.scss';
 
 // fragments
 @import 'fragments/animations.scss'; 
 @import 'fragments/buttons.scss';
 @import 'fragments/typography.scss';
 
-// navigation
+// navigation 
 @import 'navigation/header.scss';
 @import 'navigation/footer.scss';
 
