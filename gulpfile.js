@@ -18,6 +18,7 @@ const craftimg = 'cms/web/assets/img/';
 const craftfonts = 'cms/web/assets/fonts/';
 const crafttemplates = 'cms/templates/';
 const craftcss = 'cms/web/assets/css/';
+const craftjs = 'cms/web/assets/js/';
 
 // dev path
 const imgfiles = 'dev/assets/img/**/*.+(png|jpg|gif|svg)';
@@ -102,7 +103,7 @@ function scripts(done){
         .pipe(sourcemaps.init({loadMaps: true}))
         .pipe(uglify())
         .pipe(sourcemaps.write())
-        .pipe(dest(path.craft.js))
+        .pipe(dest(craftjs))
     });
     done()
 }
