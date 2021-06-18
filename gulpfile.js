@@ -5,12 +5,30 @@ const autoprefixer = require('gulp-autoprefixer');
 const sourcemaps = require('gulp-sourcemaps');
 const cleancss = require('gulp-clean-css');
 const uglify = require('gulp-uglify');
-const rev = require('gulp-rev');
-const { readFileSync } = require('fs');
-const revRewrite = require('gulp-rev-rewrite');
+const rename = require('gulp-rename');
+const browserify = require('browserify');
+const babelify = require('babelify');
+const source = require('vinyl-source-stream');
+const buffer = require('vinyl-buffer');
 const del = require('del');
 const browserSync = require('browser-sync').create();
 
+// cms path
+const craftimg = 'cms/web/assets/img/';
+const craftfonts = 'cms/web/assets/fonts/';
+const crafttemplates = 'cms/templates/';
+const craftcss = 'cms/web/assets/css/';
+
+// dev path
+const imgfiles = 'dev/assets/img/**/*.+(png|jpg|gif|svg)';
+const fontfiles = 'dev/assets/fonts/**/*.+(eot|svg|ttf|woff)';
+const cssfiles = 'dev/assets/scss/**/*.scss';
+const jsfiles = 'dev/assets/js/**/*.js';
+const htmlfiles = 'dev/templates/**/*.html';
+const mainjs = 'main.js';
+const maincss = 'dev/assets/scss/main.scss';
+const alljsfiles = [mainjs];
+const devjs = 'dev/assets/js/';
 const path = {
     craft: {
         templates: './cms/templates/',
@@ -31,35 +49,62 @@ function clean(){
     return del(['cms/web/assets/**', 'cms/templates/**'])
 }
 
+// assets - img process
+function graphics(done){
+    console.log('assets process...');
+    return src(imgfiles)
+        .pipe(dest(craftimg));
+        done();
+}
+
+// assets - fonts process
+function fonts(done){
+    console.log('fonts process...');
+    return src(fontfiles)
+        .pipe(dest(craftfonts))
+        done();
+}
+
 // compilando templates
-function pages(){
-    console.log('running pages process...')
-    return src(path.dev.templates)
-    .pipe(dest(path.craft.templates))
+function pages(done){
+    console.log('templates process...')
+    return src(htmlfiles)
+        .pipe(dest(crafttemplates))
+        done();
 }
 
 // compilando scss
-function css(){
-    console.log('compiling sass...')
-    return src(path.dev.css)
+function css(done){
+    console.log('sass process...')
+    return src(maincss)
         .pipe(plumber())
         .pipe(sourcemaps.init())
         .pipe(sass().on('error', sass.logError))
         .pipe(autoprefixer())
         .pipe(sourcemaps.write())
         .pipe(cleancss())
-        .pipe(dest(path.craft.css))
+        .pipe(dest(craftcss))
+    done();
 }
 
 // compilando js
-function scripts(){
+function scripts(done){
     console.log('compiling scripts...')
-    return src(path.dev.js)
-        .pipe(plumber())
-        .pipe(sourcemaps.init())
+    alljsfiles.map(function(entry){
+        return browserify({
+            entries: [devjs + entry]
+        })
+        .transform(babelify, {presets: ['@babel/preset-env']} )
+        .bundle()
+        .pipe(source(entry))
+        .pipe(rename({ extname: '.min.js'}))
+        .pipe(buffer())
+        .pipe(sourcemaps.init({loadMaps: true}))
         .pipe(uglify())
         .pipe(sourcemaps.write())
         .pipe(dest(path.craft.js))
+    });
+    done()
 }
 
 function server(done){
@@ -74,37 +119,26 @@ function reload(done){
     done();
 }
 
+
+
 function dev(){
-    watch(['dev/assets/scss/**/*.scss', 'dev/assets/js/**/*.js', 'dev/templates/**/*.html'], series(clean, parallel(css, scripts, pages, reload)))
+    watch([cssfiles, jsfiles, htmlfiles, imgfiles, fontfiles ], series(clean, parallel(css, scripts, graphics, fonts, pages, reload)))
 }
 
+exports.fonts = fonts;
+exports.graphics = graphics;
 exports.scripts = scripts;
 exports.css = css;
 exports.pages = pages;
 exports.clean = clean;
-//exports.watch = series(dev, parallel(dev));
 
 exports.default = series(
     clean,
     css,
     scripts,
+    fonts,
+    graphics,
     pages,
     server,
     dev
 )
-
-
-// function watchTask(){
-//     watch('dev/assets/scss/**/*.scss', series(compileSass, pages, rewrite, reload));
-//     watch('dev/templates/**/*.html', series(pages, compileSass, rewrite, reload));
-// }
-
-// exports.default = series(
-//     compileSass,
-//     pages,
-//     server,
-//     watchTask
-// )
-
-// exports.clean = clean;
-// exports.build = series(clean, parallel(compileSass, pages, rewrite));
