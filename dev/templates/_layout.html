@@ -14,13 +14,19 @@
     <!DOCTYPE html>
     <html lang="es">
     <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         
         
         <!-- <link rel="stylesheet" {%if siteUrl %} href="{{ siteUrl }}assets/css/main.css" {% else %} href="../web/assets/css/main.css"{% endif %}> -->
         <link rel="stylesheet" href="/assets/css/main.css">
         <!-- <script {%if siteUrl %} src="{{ siteUrl }}assets/js/scripts/vendor/modernizr-custom.js" {% else %} src="../web/assets/js/scripts/vendor/modernizr-custom.js"{% endif %}></script> -->
     </head>
-    <body class="">
+    {% if entry ?? false %}
+        {% set class = entry.slug %}
+    {% else %}
+        {% set class = 'default-template' %}
+    {% endif %}
+    <body class="{{ class }}">
         
 
         {% include 'navigation/header.html' %}

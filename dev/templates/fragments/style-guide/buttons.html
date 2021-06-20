@@ -1,0 +1,11 @@
+<div class="block buttons">
+    <h2 class="h1 titlle">Buttons</h2>
+
+    <div class="element">
+        {% for button in buttons %}
+            <button class="{{ button.state }} {{ button.buttonType|lower|replace(' button', '-button') }}">{{ button.buttonType }}</button>
+            {% include "fragments/style-guide/fragments/buttons-specs.html" %}
+        {% endfor %}
+    </div>
+    
+</div>

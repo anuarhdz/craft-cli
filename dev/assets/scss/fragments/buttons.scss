@@ -1,0 +1,50 @@
+button, .button, input[type="button"]{
+    padding: 0.75em 2.25em;
+    border: 0;
+    border-radius: 0;
+    @include fontsize(2rem, 2rem);
+    &.normal.primary-button{
+        color:$white;
+        background-color: $blue;
+        @include bgcoloreffect;
+
+        &:hover, &:focus, &:visited, &active{
+            background: $darkBlue;
+        }
+    }
+
+    &.normal.secondary-button{
+        color: $white;
+        background-color: $darkBlue;
+        @include bgcoloreffect;
+
+        &:hover, &:focus, &:visited, &active{
+            background: $lighBlue;
+        }
+    }
+
+    &.hover, &.focus, &.active, &.visited {
+        color: $white;
+        &.primary-button{
+            background: $darkBlue;
+
+            &:hover, &:focus, &:active, &:visited{
+                background: $darkBlue;
+            }
+        }
+        &.secondary-button{
+            background-color: $lighBlue;
+            
+
+            &:hover, &:focus, &:active, &:visited{
+                background-color: $lighBlue;
+            }
+        }
+    }
+
+    &.focus, &:focus{
+        outline-color: $blue;
+        outline-width: 5px;
+        outline-style: auto;
+    }
+}

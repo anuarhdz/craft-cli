@@ -1,0 +1,25 @@
+{# twig variables #}
+{% set fonts = entry.typography.all() %}
+{% set colors = entry.colors.all() %}
+{% set buttons = entry.buttons.all() %}
+{% set links = entry.links.all() %} 
+
+<section class="style-guide">
+    <div>
+        <div class="container">
+            {% if colors %}
+                {% include "fragments/style-guide/colors.html" %}
+            {% endif %}
+            {% if fonts %}
+                {% include "fragments/style-guide/fonts.html" %}
+            {% endif %}
+            {% if buttons %}
+                {% include "fragments/style-guide/buttons.html" %}
+            {% endif %}
+            {% if links %}
+                {% include "fragments/style-guide/links.html" %}
+            {% endif %}
+            
+         </div>
+    </div>
+</section>

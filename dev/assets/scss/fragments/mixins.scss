@@ -1,0 +1,42 @@
+// mixins
+
+// typography
+@mixin fontsize($fsm, $fsd){
+    font-size: $fsm;
+    @media screen and (min-width: $tabletup){
+        font-size: $fsd; 
+    }
+}
+
+// margin and paddings
+@mixin paddings($paddingMobile, $paddingDesktop){
+    padding: $paddingMobile;
+    @media screen and (min-width: $tabletup){
+        padding: $paddingDesktop;
+    }
+}
+
+// flex - grids
+@mixin autoflex{ 
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+@mixin autogrid{
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(225px, 300px));
+    gap:1rem;
+}
+@mixin autoflexchild{ 
+    flex: 1 0 0%;
+}
+
+// animations - effects 
+@mixin coloreffect{
+    transition: color 0.5s ease;
+}
+@mixin bgcoloreffect{
+    transition: background 0.5s ease, color 0.5s ease;
+}
+

@@ -1,0 +1,79 @@
+// typography
+h1, .h1,
+h2, .h2,
+h3, .h3,
+h4, .h4,
+h5, .h5,
+h6, .h6 {
+    margin-top: 0;
+    margin-bottom: 1rem;
+    letter-spacing: 0;
+    font-family: $sans-serif;
+    font-weight: 600;
+    line-height: 1;
+    &.title{
+        margin-bottom: 3rem;
+    }
+}
+
+h1, .h1{
+    @include fontsize(3.8rem, 6rem);
+}
+
+h2, .h2{
+    @include fontsize(4rem, 4rem);
+}
+
+h3, .h3{
+    @include fontsize(2.8rem, 3.5rem);
+}
+
+h4, .h4{
+    @include fontsize(3rem, 3rem);
+}
+
+h5, .h5{
+    @include fontsize(2rem, 2.5rem);
+}
+
+h6, .h6{
+    @include fontsize(1.8rem, 2.4rem)
+}
+
+p{
+    margin: 1em 0;
+}
+
+p, a, ul, li, span{
+    font-weight: normal;
+    line-height: 1.4;
+    font-family: $sans-serif;
+    @include fontsize(2rem, 2rem);
+}
+
+a,
+p a, .link{
+    text-decoration: none;
+    color: $blue;
+    @include coloreffect;
+
+    &:hover, &:focus, &:active, &:visited{
+        color: $darkBlue;
+        @include coloreffect;
+    }
+
+    &.hover, &.focus, &.active, &.visited {
+        color: $darkBlue;
+
+        &:hover, &:focus, &:active, &:visited{
+            color: $darkBlue;
+        }
+    }
+
+    &.focus, &:focus{
+        outline-color: $blue;
+        outline-width: 5px;
+        outline-style: auto;
+    }
+}
+

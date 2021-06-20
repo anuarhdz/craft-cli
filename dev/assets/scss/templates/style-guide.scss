@@ -1,0 +1,82 @@
+body{
+    &.style-guide{
+        section.style-guide{
+            &>div{
+                .container{
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: flex-start;
+                    flex-wrap: wrap;
+
+                    .block {
+                        @include autoflex;
+                        margin-bottom: 50px;
+
+                        h2{
+                            width: 100%;
+                        }
+                        &.colors{
+                            .element{
+                                margin: 0;
+                                @media screen and (min-width: $tabletup){
+                                    margin: 50px 0;
+                                }
+                            }
+                        }
+
+                        &.fonts, &.links{
+                            display: block;
+                            .element{
+                                &>div{
+                                    @include autogrid;
+                                }
+                            }
+                        }
+                        &.fonts, &.links, &.buttons{
+                            .element{
+                                padding: 0;
+                                &>div{
+                                    background-color: $gray;
+                                    padding: $simplepadding;
+                                }
+                            }
+                        }
+                        &.buttons{
+                            .element{
+                                button{
+                                    margin: 10px 10px 10px 0;
+                                }
+                                &>div{
+                                    margin-bottom: 20px;
+                                    @include autoflex;
+                                    justify-content: space-between;
+                                    p{
+                                        width: 45%;
+                                    }
+                                }
+                            }
+                        }
+                        &.buttons, &.links{
+                            width: 45%;
+                        }
+                        &.colors, &.fonts {
+                            width: 100%;
+                        }
+                        .element{
+                            margin:50px 0;
+                            @include autoflexchild;
+                            max-width: 100%;
+                            width: 100%;
+                            padding: $simplepadding;
+                            p{
+                                line-height: 1.1;
+                                font-size: 1.5rem;
+                                margin: 0.5rem 0;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

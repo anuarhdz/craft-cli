@@ -1,0 +1,50 @@
+$defaultblack: #000;
+$defaultwhite: #fff;
+body{
+    &.default-template{
+        background-color: $defaultblack;
+        color: $defaultwhite;
+        overflow: hidden;
+    
+    
+        section.default-template{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100vw;
+            height: calc(100vh - 50px);
+            &>div{
+                max-width: 800px;
+
+                h1{
+                    font-size: 4em;
+                    text-align: center;
+                }
+
+                p{
+                    font-size: 1.2em;
+                    a{
+                        color: $defaultwhite;
+                    }
+                    code{
+                        display: inline-block;
+                        background: #f2f2f2;
+                        padding: 3px;
+                        font-size: 0.7em;
+                        border-radius: 3px;
+                        color: black;
+                    }
+                }
+            }
+        }
+        footer{
+            height: 50px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            p{
+                margin: 0;
+            }
+        }
+    }
+}

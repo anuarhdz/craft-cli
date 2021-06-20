@@ -1,0 +1,13 @@
+<div class="block links">
+    <h2 class="h1 titlle">Links</h2>
+
+    {% for link in links %}
+        <div class="element">
+            <p>
+                <a href="#" class="link {{ link.state }}">This is a link on {{ link.state }} state.</a>
+            </p>
+            {% include "fragments/style-guide/fragments/links-specs.html" %}
+        </div>
+    {% endfor %}
+    
+</div>

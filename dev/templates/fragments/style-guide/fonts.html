@@ -1,0 +1,78 @@
+<div class="block fonts">
+    <h2 class="h1 title">Typography</h2>
+    {% set prefix = 'This is a' %}
+    {% for font in fonts %}
+    <div class="element">
+        {% switch font.element %}
+
+        {% case "h1" %}
+        <h1>{{ prefix }} {{ font.element | upper }}</h1>
+        {% include "fragments/style-guide/fragments/font-specs.html" %}
+        {% case "h2" %}
+        <h2>{{ prefix }} {{ font.element | upper }}</h2>
+        {% include "fragments/style-guide/fragments/font-specs.html" %}
+        {% case "h3" %}
+        <h3>{{ prefix }} {{ font.element | upper }}</h3>
+        {% include "fragments/style-guide/fragments/font-specs.html" %}
+        {% case "h4" %}
+        <h4>{{ prefix }} {{ font.element | upper }}</h4>
+        {% include "fragments/style-guide/fragments/font-specs.html" %}
+        {% case "h5" %}
+        <h5>{{ prefix }} {{ font.element | upper }}</h5>
+        {% include "fragments/style-guide/fragments/font-specs.html" %}
+        {% case "h6" %}
+        <h6>{{ prefix }} {{ font.element | upper }}</h6>
+        {% include "fragments/style-guide/fragments/font-specs.html" %}
+        {% case "paragraph" %}
+        <p style="font-size: 2rem;line-height:1.4;margin:1em 0;"><strong>Paragraph</strong></p>
+        <p style="font-size: 2rem;line-height:1.4;margin:1em 0;"><strong>This is a normal paragraph</strong>. Lorem ipsum dolor sit amet consectetur adipisicing elit.
+            Dolores rerum repellat illum at nesciunt cupiditate a ut,
+            eveniet animi voluptatem non ipsum esse ex enim. Voluptate
+            quisquam omnis impedit debitis.</p>
+        <p style="font-size: 2rem;line-height:1.4;margin:1em 0;">Proin placerat purus eget mauris placerat interdum. Cras quis semper turpis. Mauris ligula risus, mattis in
+            consectetur interdum, molestie sed justo. Fusce tristique id nibh et accumsan. Sed pretium pulvinar massa,
+            sed tincidunt risus volutpat quis. Donec pulvinar consequat libero, vel dignissim nulla placerat a. Maecenas
+            pulvinar, lorem convallis molestie condimentum, lectus purus interdum enim, sit amet elementum lectus velit
+            ac dui.
+        </p>
+        {% include "fragments/style-guide/fragments/font-specs.html" %}
+        {% case "paragraphSmall" %}
+        <p class="is-small">This is a small paragraph. Lorem ipsum dolor sit amet consectetur adipisicing elit.
+            Dolores rerum repellat illum at nesciunt cupiditate a ut,
+            eveniet animi voluptatem non ipsum esse ex enim. Voluptate
+            quisquam omnis impedit debitis.</p>
+        <p class="is-small">Proin placerat purus eget mauris placerat interdum. Cras quis semper turpis. Mauris ligula risus, mattis in
+            consectetur interdum, molestie sed justo. Fusce tristique id nibh et accumsan. Sed pretium pulvinar massa,
+            sed tincidunt risus volutpat quis. Donec pulvinar consequat libero, vel dignissim nulla placerat a. Maecenas
+            pulvinar, lorem convallis molestie condimentum, lectus purus interdum enim, sit amet elementum lectus velit
+            ac dui.
+        </p>
+        {% include "fragments/style-guide/fragments/font-specs.html" %}
+        {% case "paragraphMedium" %}
+        <p class="is-medium">This is a medium paragraph. Lorem ipsum dolor sit amet consectetur adipisicing elit.
+            Dolores rerum repellat illum at nesciunt cupiditate a ut,
+            eveniet animi voluptatem non ipsum esse ex enim. Voluptate
+            quisquam omnis impedit debitis.</p>
+        <p class="is-medium">Proin placerat purus eget mauris placerat interdum. Cras quis semper turpis. Mauris ligula risus, mattis in
+            consectetur interdum, molestie sed justo. Fusce tristique id nibh et accumsan. Sed pretium pulvinar massa,
+            sed tincidunt risus volutpat quis. Donec pulvinar consequat libero, vel dignissim nulla placerat a. Maecenas
+            pulvinar, lorem convallis molestie condimentum, lectus purus interdum enim, sit amet elementum lectus velit
+            ac dui.
+        </p>
+        {% include "fragments/style-guide/fragments/font-specs.html" %}
+        {% case "paragraphBig" %}
+        <p class="is-big">This is a big paragraph. Lorem ipsum dolor sit amet consectetur adipisicing elit.
+            Dolores rerum repellat illum at nesciunt cupiditate a ut,
+            eveniet animi voluptatem non ipsum esse ex enim. Voluptate
+            quisquam omnis impedit debitis.</p>
+        <p class="is-big">Proin placerat purus eget mauris placerat interdum. Cras quis semper turpis. Mauris ligula risus, mattis in
+            consectetur interdum, molestie sed justo. Fusce tristique id nibh et accumsan. Sed pretium pulvinar massa,
+            sed tincidunt risus volutpat quis. Donec pulvinar consequat libero, vel dignissim nulla placerat a. Maecenas
+            pulvinar, lorem convallis molestie condimentum, lectus purus interdum enim, sit amet elementum lectus velit
+            ac dui.
+        </p>
+        {% include "fragments/style-guide/fragments/font-specs.html" %}
+        {% endswitch %}
+    </div>
+    {% endfor %}
+</div>

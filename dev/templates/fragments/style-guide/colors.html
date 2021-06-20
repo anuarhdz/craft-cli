@@ -1,0 +1,15 @@
+<div class="block colors">
+    <h2 class="h1 title">Colors</h2>
+    {% for color in colors %}
+        {% if color.variantName == 'white' or color.variantName == 'gray' %}
+            {% set ft = 'black' %}
+        {% else %}
+            {% set ft = 'white' %}
+        {% endif %}
+        <div class="element" style="background-color:{{ color.hex }}; color: {{ ft }}">
+            <p class="color-name">{{ color.variantName }}</p>
+            <p class="hex"><strong>HEX: {{ color.hex }}</strong></p>
+        </div>
+    {% endfor %}
+</div>
+

@@ -1,8 +1,15 @@
+// setup
+@import 'setup/normalize.scss';
+
 
 // source imports
+@import 'fragments/mixins.scss';
 @import 'global.scss';
 
+
+
 // fragments
+
 @import 'fragments/animations.scss'; 
 @import 'fragments/buttons.scss';
 @import 'fragments/typography.scss';
@@ -12,5 +19,10 @@
 @import 'navigation/footer.scss';
 
 // sections
+@import 'sections/styles.scss';
 
 // templates 
+@import 'templates/style-guide.scss';
+
+// default index templalte
+@import 'index.scss';
