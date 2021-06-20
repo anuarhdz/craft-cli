@@ -11,10 +11,8 @@ body{
             display: flex;
             justify-content: center;
             align-items: center;
-            width: 100vw;
             height: calc(100vh - 50px);
             &>div{
-                max-width: 800px;
 
                 h1{
                     font-size: 4em;
@@ -37,7 +35,7 @@ body{
                 }
             }
         }
-        footer{
+        footer{ 
             height: 50px;
             display: flex;
             justify-content: center;
