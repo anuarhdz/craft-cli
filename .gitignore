@@ -1,5 +1,5 @@
 node_modules
 cms
-.DS_store
+/.DS_store
 dev/.DS_store
 dev/assets/.DS_store
